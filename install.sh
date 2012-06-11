@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Clone Vundle into ~/.vim/bundle
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
 # Move files to backup if they should exist
 if [ -e "$HOME/.vimrc" ]
 then
