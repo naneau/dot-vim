@@ -139,6 +139,10 @@ nmap <silent> <leader>egv :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 nmap <silent> <leader>sgv :so $MYGVIMRC<CR>
 
+" Change cursor shape in xterm
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
 " Statusline
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P " Taken from fugitive docs
 set laststatus=2 " Always show the statusline
@@ -268,7 +272,7 @@ set viminfo="~/.vim/tmp/viminfo"
 
 " POWERLINE
 let g:Powerline_symbols = 'unicode'
-
+let g:Powerline_theme = 'skwp'
 
 " ECLIM
 let g:EclimXmlValidate = 0
