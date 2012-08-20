@@ -123,6 +123,7 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " Tab completion
 "set wildmode=list:longest,list:full
 "set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+"set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -132,6 +133,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Command-T configuration
 let g:CommandTMaxHeight=10
+set wildignore+=vendor/**,library/Zend/**
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
