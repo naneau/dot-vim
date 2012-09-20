@@ -19,6 +19,7 @@ Bundle 'slack/vim-l9'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
 " needed for SnipMate
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -169,6 +170,13 @@ let Tlist_Show_One_File = 1                     " only show the current file
 let g:snips_trigger_key='<D-y>'
 let g:snips_author = 'Maurice Fonk'
 
+" Syntastic
+let g:syntastic_check_on_open=1
+let g:syntastic_echo_current_error=1
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+
 " clear whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
@@ -278,7 +286,11 @@ let g:Powerline_symbols = 'unicode'
 let g:Powerline_theme = 'skwp'
 
 " ECLIM
-"let g:EclimXmlValidate = 0
+let g:EclimLogLevel = 0
+let g:EclimValidate = 0
+let g:EclimXmlValidate = 0
+let g:EclimPhpValidate = 0
+let g:EclimPhpHtmlValidate = 0
 
 " PHP-CS-FIXER
 let g:php_cs_fixer_path = "~/Workspace/bin/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
