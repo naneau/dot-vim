@@ -133,7 +133,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Command-T configuration
 let g:CommandTMaxHeight=10
-set wildignore+=vendor/**,library/Zend/**
+set wildignore+=vendor/**,library/Zend/**,external-library/**,public/**
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
@@ -277,7 +277,7 @@ let g:Powerline_symbols = 'unicode'
 let g:Powerline_theme = 'skwp'
 
 " ECLIM
-let g:EclimXmlValidate = 0
+"let g:EclimXmlValidate = 0
 
 " PHP-CS-FIXER
 let g:php_cs_fixer_path = "~/Workspace/bin/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
