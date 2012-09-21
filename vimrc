@@ -139,6 +139,8 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Ctrl-P
 map <C-p> :CtrlP<CR>
+" Too much muscle memory, mapping command-T to CtrlP too
+map <D-t> :CtrlP<CR>
 " Ignore vendor and library's for in wildignore
 set wildignore+=vendor/**,library/Zend/**,external-library/**,public/**
 
