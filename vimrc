@@ -34,6 +34,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'mattn/zencoding-vim'
 Bundle 'stephpy/vim-php-cs-fixer'
+Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'groenewege/vim-less'
 
 " theme
@@ -218,6 +219,10 @@ let g:NERDCustomDelimiters = {
 " Map BufExplorer to leader-b
 map <Leader>b :BufExplorer<CR>
 
+" PHP insert use plugin
+imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
+map <buffer> <Leader>u :call PhpInsertUse()<CR>
+
 " FILETYPE SPECIFIC SETTINGS
 
 
@@ -250,7 +255,7 @@ map <Leader>p :Git push<CR>
 imap <D-e> <C-y>,
 
 " GUNDO
-map <Leader>u :GundoToggle<CR>
+map <Leader>r :GundoToggle<CR>
 let g:gundo_right = 1
 let g:undo_width = 75
 
@@ -284,6 +289,9 @@ set viminfo="~/.vim/tmp/viminfo"
 " POWERLINE
 let g:Powerline_symbols = 'unicode'
 let g:Powerline_theme = 'skwp'
+
+" PHP class names finder
+map <Leader>p /[^'^\\^\s^_][A-Z]\+[a-zA-Z]\+[_][A-Z][A-Za-z_]\+<CR>
 
 " ECLIM
 let g:EclimLogLevel = 0
