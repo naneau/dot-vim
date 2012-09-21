@@ -10,7 +10,7 @@ Bundle 'gmarik/vundle'
 Bundle 'mileszs/ack.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'vim-scripts/Command-T'
+"Bundle 'vim-scripts/Command-T'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'clones/vim-fuzzyfinder'
@@ -135,7 +135,11 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 cmap w!! w !sudo tee % >/dev/null
 
 " Command-T configuration
-let g:CommandTMaxHeight=10
+"let g:CommandTMaxHeight=10
+
+" Ctrl-P
+map <C-p> :CtrlP<CR>
+" Ignore vendor and library's for in wildignore
 set wildignore+=vendor/**,library/Zend/**,external-library/**,public/**
 
 " Quickly edit/reload the vimrc file
@@ -222,6 +226,8 @@ map <Leader>b :BufExplorer<CR>
 " PHP insert use plugin
 imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
 map <buffer> <Leader>u :call PhpInsertUse()<CR>
+
+
 
 " FILETYPE SPECIFIC SETTINGS
 
