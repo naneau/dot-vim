@@ -1,16 +1,24 @@
+" BOOTSTRAP
 set nocompatible               " be iMproved
-filetype off                   " required!
+
+" Needed for both snipmate and nerd commenter
+filetype plugin indent on
+
+" Turn on syntax
+syntax on
+
+"----------------------------------------------------------------------
+
+" VUNDLE SETUP
 
 " Initialise Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-
 Bundle 'mileszs/ack.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
-"Bundle 'vim-scripts/Command-T'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'clones/vim-fuzzyfinder'
@@ -21,7 +29,6 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
-" needed for SnipMate
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'MarcWeber/snipmate.vim'
 Bundle 'ervandew/supertab'
@@ -37,17 +44,23 @@ Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'groenewege/vim-less'
 
-" theme
+"----------------------------------------------------------------------
+
+" THEME and layout
+
 set background=dark
 color solarized
 
-" increase line height a little
+" Increase line height a little
 set linespace=4
 
-" Needed for both snipmate? and nerd commenter
-filetype plugin indent on
+" Change cursor shape in xterm
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-syntax on
+"----------------------------------------------------------------------
+
+" VARIABLES AND SETUP
 
 " This shows what you are typing as a command.  I love this!
 set showcmd
@@ -67,10 +80,10 @@ set nohidden
 set number
 set ruler
 
-" Set encoding
+" Set encoding to Unicode UTF-8 by default
 set encoding=utf-8
 
-" Who the fuck still needs these... git ftw.
+" Who still needs these... git ftw.
 set nobackup
 set noswapfile
 
@@ -78,29 +91,26 @@ set noswapfile
 set backupdir=~/.vim/tmp/backup
 set directory=~/.vim/tmp/backup
 
+" Put viminfo in .tmp too
+set viminfo="~/.vim/tmp/viminfo"
+
 " Whitespace and indenting
 filetype indent on              " load the plugin and indent settings for the detected filetype
 set autoindent                  " Turn on auto indenting, using the previous line's indent level for new lines
-"set smartindent                 " Use smart indenting for code (c-style aware autoindent)
-"set copyindent                  " copy the previous indentation on autoindenting
+"set smartindent                " Use smart indenting for code (c-style aware autoindent)
+"set copyindent                 " copy the previous indentation on autoindenting
 set smarttab                    " insert tabs on the start of a line according to shiftwidth, not tabstop
 set nowrap                      " Don't wrap text by default (but scroll out of the window)
 set nofoldenable                " disable folding
-"set colorcolumn=80             " Show a column at 120 chars
+set colorcolumn=80              " Show a column at 80 chars
 "set tw=80                      " Set the text width to 80
-
-" Map j/k to gj/gk so we go up to the next row, not next line on wrapped lines
-nnoremap j gj
-nnoremap k gk
-
-" Map ; to :, hey, saves a shift ;)
-nnoremap ; :
 
 " Parentheses
 set showmatch                   " show matching parenthesis
 
 " Comments
 set comments=sr:/*,mb:*,ex:*/   " Comments continue in docblocks
+
 " Tabs 'n such
 set tabstop=4                   " display tabs as 4 spaces
 set shiftwidth=4                " Use 4 shifts for < and > shifting
@@ -115,56 +125,82 @@ set listchars=tab:▸\ ,eol:¬     " TextMate-like invisible chars
 
 " Searching
 set ignorecase                  " Ignore UpperCase in searches
-set smartcase                   " unless an upper case character is used
-set nohlsearch                  " turn off highlighting for searched expressions
+"set smartcase                  " unless an upper case character is used
+"set nohlsearch                 " turn off highlighting for searched expressions
 set incsearch                   " highlight as we search however
+
+"----------------------------------------------------------------------
+
+" EDITING
+
+" Remove any trailing whitespace that is in the file
+autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+
+"----------------------------------------------------------------------
+
+" FILE SEARCHING
+"
+" Ignore vendor and library's for in wildignore
+"set wildignore+=vendor/**,library/Zend/**,external-library/**,public/**
+"set wildmode=list:longest,list:full
+"set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+
+"----------------------------------------------------------------------
+
+" NATIVE MAPPINGS
+
+" Map j/k to gj/gk so we go up to the next row, not next line on wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+" Map ; to :, hey, saves a shift ;)
+nnoremap ; :
+
+" Use w!! to sudo write after opening a file without sudo rights
+cmap w!! w !sudo tee % >/dev/null
+
+" Command-][ to increase/decrease indentation
+vmap <D-]> >gv
+vmap <D-[> <gv
 
 " Map C-\ to follow a tag into a new tab
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-" Tab completion
-"set wildmode=list:longest,list:full
-"set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
-"set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+"----------------------------------------------------------------------
 
-" Remove any trailing whitespace that is in the file
-autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+" FILETYPE SPECIFIC SETTINGS
 
-" Use w!! to sudo write after opening a file without sudo rights
-cmap w!! w !sudo tee % >/dev/null
+" Map command-d to coffee compile
+vmap <D-d> :CoffeeCompile<CR>
 
-" Command-T configuration
-"let g:CommandTMaxHeight=10
+" On save, compile coffee and show errors
+"au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
 
-" Ctrl-P
-" Too much muscle memory, mapping command-T to CtrlP too
-map <D-t> :CtrlP<CR>
+" Add coffeekup to supported files for coffeescript
+au BufNewFile,BufRead *.coffeekup set filetype=coffee
+
+" Markdown
+autocmd FileType mkd set linebreak wrap nolist
+"autocmd FileType mkd set textwidth=80
+"autocmd FileType mkd set wrapmargin=80
+
+" LESS support
+au BufNewFile,BufRead *.less set filetype=less
+autocmd FileType less setlocal omnifunc=csscomplete#CompleteCSS
+
+"----------------------------------------------------------------------
+
+" PLUGINS
+
+" Ctrl-P plugin
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-" Ignore vendor and library's for in wildignore
-set wildignore+=vendor/**,library/Zend/**,external-library/**,public/**
+" Too much muscle memory, mapping command-T to CtrlP too
+map <D-t> :CtrlP<CR>
 
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>egv :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-nmap <silent> <leader>sgv :so $MYGVIMRC<CR>
-
-" Change cursor shape in xterm
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
-" Statusline
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P " Taken from fugitive docs
-set laststatus=2 " Always show the statusline
-
-" Map leader T to open the fuzzy tag thing for the current buffer
-map <Leader>T :FufBufferTag<CR>
-let g:fuf_dataDir = '~/.vim/tmp'
-
-" TagList Settings
+" TagList plugin
 map <Leader>t :TlistToggle<CR>                  " Map leader t to  TagList toggle
 let Tlist_Use_Right_Window = 1                  " Set up TagList in right window instead of left
 let Tlist_File_Fold_Auto_Close = 1              " close all folds except for current file
@@ -173,33 +209,25 @@ let Tlist_WinWidth = 50                         " width of window
 let Tlist_Close_On_Select = 1                   " close tlist when a selection is made
 let Tlist_Show_One_File = 1                     " only show the current file
 
-" PLUGINS
+" Map leader T to open the fuzzy tag thing for the current buffer
+map <Leader>T :FufBufferTag<CR>
+let g:fuf_dataDir = '~/.vim/tmp'
 
+" SnipMate Plugin
 " Use command-y for snipmate
 let g:snips_trigger_key='<D-y>'
 let g:snips_author = 'Maurice Fonk'
 
-" Syntastic
+" Syntastic Plugin
 let g:syntastic_check_on_open=1
 let g:syntastic_echo_current_error=1
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-" clear whitespace
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-
-" Disable netrw menu
-let g:netrw_menu=0
-
+" Ack Plugin
 " Command-Shift-F for Ack
 map <D-F> :Ack<space>
-" Or even better... leader-a
-nnoremap <leader>a :Ack
-
-" Command-][ to increase/decrease indentation
-vmap <D-]> >gv
-vmap <D-[> <gv
 
 " Map leader-n to nerd tree on/off
 map <Leader>n :NERDTreeToggle<CR>
@@ -226,29 +254,6 @@ map <Leader>b :BufExplorer<CR>
 " PHP insert use plugin
 imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
 map <buffer> <Leader>u :call PhpInsertUse()<CR>
-
-
-
-" FILETYPE SPECIFIC SETTINGS
-
-
-" Map command-d to coffee compile
-vmap <D-d> :CoffeeCompile<CR>
-
-" On save, compile coffee and show errors
-"au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
-
-" Add coffeekup to supported files for coffeescript
-au BufNewFile,BufRead *.coffeekup set filetype=coffee
-
-" Markdown
-autocmd FileType mkd set linebreak wrap nolist
-"autocmd FileType mkd set textwidth=80
-"autocmd FileType mkd set wrapmargin=80
-
-" LESS support
-au BufNewFile,BufRead *.less set filetype=less
-autocmd FileType less setlocal omnifunc=csscomplete#CompleteCSS
 
 " FUGITIVE
 map <Leader>w :Gwrite<CR>
@@ -281,16 +286,12 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 imap <D-r> <C-X><C-O>
 
 " SUPERTAB
-" Supertab settings
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabLongestHighlight = 1
 let g:SuperTabNoCompleteAfter = [':', '\s', ']', ')', '"', "'"]         " Don't complete after obvious non-tabbable
 
 " YANKRING
 let g:yankring_history_dir = '~/.vim/tmp'
-
-" VIMINFO
-set viminfo="~/.vim/tmp/viminfo"
 
 " POWERLINE
 let g:Powerline_symbols = 'unicode'
