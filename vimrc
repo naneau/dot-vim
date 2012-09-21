@@ -138,9 +138,11 @@ cmap w!! w !sudo tee % >/dev/null
 "let g:CommandTMaxHeight=10
 
 " Ctrl-P
-map <C-p> :CtrlP<CR>
 " Too much muscle memory, mapping command-T to CtrlP too
 map <D-t> :CtrlP<CR>
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 " Ignore vendor and library's for in wildignore
 set wildignore+=vendor/**,library/Zend/**,external-library/**,public/**
 
@@ -209,10 +211,6 @@ let g:CommandTAcceptSelectionTabMap = '<CR>'
 let NERDTreeDirArrows=1
 " Make the nerd tree window nice and big
 let NERDTreeWinSize=50
-
-" Command-T for CommandT
-map <D-t> :CommandT<CR>
-imap <D-t> <Esc>:CommandT<CR>
 
 " use NerdComment with command+/
 map <D-/> NERDComToggleComment
