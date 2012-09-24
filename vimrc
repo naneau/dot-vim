@@ -164,10 +164,6 @@ cmap w!! w !sudo tee % >/dev/null
 vmap <D-]> >gv
 vmap <D-[> <gv
 
-" Map C-\ to follow a tag into a new tab
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
 " Map command-r to omni-complete
 "imap <D-r> <C-X><C-O>
 
