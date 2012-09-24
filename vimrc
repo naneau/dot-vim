@@ -42,6 +42,7 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'mattn/zencoding-vim'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'arnaud-lb/vim-php-namespace'
+Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'groenewege/vim-less'
 
 "----------------------------------------------------------------------
@@ -167,6 +168,9 @@ vmap <D-[> <gv
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
+" Map command-r to omni-complete
+"imap <D-r> <C-X><C-O>
+
 "----------------------------------------------------------------------
 
 " FILETYPE SPECIFIC SETTINGS
@@ -189,6 +193,13 @@ autocmd FileType mkd set linebreak wrap nolist
 au BufNewFile,BufRead *.less set filetype=less
 autocmd FileType less setlocal omnifunc=csscomplete#CompleteCSS
 
+" OMNICOMPLETE
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
 "----------------------------------------------------------------------
 
 " PLUGINS
@@ -196,6 +207,12 @@ autocmd FileType less setlocal omnifunc=csscomplete#CompleteCSS
 " Ctrl-P plugin
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+
+" Always open in tab
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 
 " Too much muscle memory, mapping command-T to CtrlP too
 map <D-t> :CtrlP<CR>
@@ -274,16 +291,6 @@ let g:undo_width = 75
 let g:yankring_window_use_horiz = 0
 map <Leader>y :YRShow<CR>
 let g:yankring_window_width = 75
-
-" OMNICOMPLETE
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-
-" Map command-r to omin-complete
-imap <D-r> <C-X><C-O>
 
 " SUPERTAB
 let g:SuperTabDefaultCompletionType = 'context'
