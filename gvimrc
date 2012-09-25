@@ -19,7 +19,8 @@ if has("gui_macvim")
     set guioptions-=L
 
     " Pretty font ^^
-    set guifont=Droid\ Sans\ Mono:h12
+    "set guifont=Droid\ Sans\ Mono:h12
+    set guifont=Source\ Code\ Pro:h13
     "set guifont=Inconsolata:h15
 
     " Fullscreen takes up entire screen
@@ -45,7 +46,7 @@ function s:CdIfDirectory(directory)
 
   " Allows reading from stdin
   " ex: git diff | mvim -R -
-  if strlen(a:directory) == 0 
+  if strlen(a:directory) == 0
     return
   endif
 

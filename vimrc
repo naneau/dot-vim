@@ -53,7 +53,7 @@ set background=dark
 color solarized
 
 " Increase line height a little
-set linespace=4
+set linespace=5
 
 " Change cursor shape in xterm
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
