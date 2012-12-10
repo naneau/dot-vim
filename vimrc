@@ -1,21 +1,22 @@
 " BOOTSTRAP
-set nocompatible               " be iMproved
-
-" Needed for both snipmate and nerd commenter
-filetype plugin indent on
+set nocompatible
 
 " Turn on syntax
 syntax on
 
-"----------------------------------------------------------------------
-
-" VUNDLE SETUP
+" Filetype needs to be off for Vundle to work
+filetype off
 
 " Initialise Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+
+"------------------------------------------------------------------------------
+
+" VUNDLE SETUP
+
 Bundle 'mileszs/ack.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
@@ -44,6 +45,9 @@ Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'groenewege/vim-less'
+
+" Turn filetype back on again for Vundle
+filetype plugin indent on
 
 "----------------------------------------------------------------------
 
@@ -142,9 +146,12 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 " FILE SEARCHING
 "
 " Ignore vendor and library's for in wildignore
-"set wildignore+=vendor/**,library/Zend/**,external-library/**,public/**
+"set wildignore+=vendor/**,library/zend/**,external-library/**,public/**
+set wildignore+=*/app/cache/*
+set wildignore+=*/tmp/*
+set wildignore+=vendor/**
 "set wildmode=list:longest,list:full
-"set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
 "----------------------------------------------------------------------
 
@@ -298,7 +305,7 @@ let g:yankring_history_dir = '~/.vim/tmp'
 
 " POWERLINE
 let g:Powerline_symbols = 'unicode'
-let g:Powerline_theme = 'skwp'
+"let g:Powerline_theme = 'skwp'
 
 " PHP class names finder
 map <Leader>p /[^'^\\^\s^_][A-Z]\+[a-zA-Z]\+[_][A-Z][A-Za-z_]\+<CR>
@@ -309,6 +316,7 @@ let g:EclimValidate = 0
 let g:EclimXmlValidate = 0
 let g:EclimPhpValidate = 0
 let g:EclimPhpHtmlValidate = 0
+set completeopt-=preview
 
 " PHP-CS-FIXER
 let g:php_cs_fixer_path = "~/Workspace/bin/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
