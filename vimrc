@@ -91,6 +91,7 @@ set encoding=utf-8
 " Who still needs these... git ftw.
 set nobackup
 set noswapfile
+set nowritebackup
 
 " Set up proper dirs for backups if they are enabled
 set backupdir=~/.vim/tmp/backup
