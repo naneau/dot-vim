@@ -45,6 +45,8 @@ Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'groenewege/vim-less'
+Bundle 'wavded/vim-stylus'
+Bundle 'digitaltoad/vim-jade'
 
 " Turn filetype back on again for Vundle
 filetype plugin indent on
@@ -107,7 +109,10 @@ set autoindent                  " Turn on auto indenting, using the previous lin
 "set copyindent                 " copy the previous indentation on autoindenting
 set smarttab                    " insert tabs on the start of a line according to shiftwidth, not tabstop
 set nowrap                      " Don't wrap text by default (but scroll out of the window)
+
 set nofoldenable                " disable folding
+set foldlevel=99
+
 set colorcolumn=80              " Show a column at 80 chars
 "set tw=80                      " Set the text width to 80
 
@@ -249,6 +254,14 @@ let g:syntastic_warning_symbol='⚠'
 " Ack Plugin
 " Command-Shift-F for Ack
 map <D-F> :Ack<space>
+
+" Use silver_searchver for ack on OSX
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin"
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+  endif
+endif
 
 " Map leader-n to nerd tree on/off
 map <Leader>n :NERDTreeToggle<CR>
