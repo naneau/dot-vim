@@ -196,6 +196,8 @@ au BufNewFile,BufRead *.coffeekup set filetype=coffee
 
 " Markdown
 autocmd FileType mkd set linebreak wrap nolist
+" Don't fold
+autocmd Filetype mkd setlocal nofoldenable
 "autocmd FileType mkd set textwidth=80
 "autocmd FileType mkd set wrapmargin=80
 
@@ -215,8 +217,8 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 " PLUGINS
 
 " Ctrl-P plugin
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'CtrlP'
 
 " Always open in tab
 let g:ctrlp_prompt_mappings = {
