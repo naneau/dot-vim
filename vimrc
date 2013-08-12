@@ -23,31 +23,25 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'clones/vim-fuzzyfinder'
 Bundle 'sjl/gundo.vim'
 Bundle 'slack/vim-l9'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'MarcWeber/snipmate.vim'
+Bundle 'garbas/vim-snipmate'
 Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-surround'
-Bundle 'godlygeek/tabular'
 Bundle 'thisivan/vim-taglist'
-Bundle 'tomtom/tlib_vim'
-Bundle 'beyondwords/vim-twig'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'mattn/zencoding-vim'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'arnaud-lb/vim-php-namespace'
-Bundle 'vim-scripts/PDV--phpDocumentor-for-Vim'
 Bundle 'groenewege/vim-less'
-Bundle 'wavded/vim-stylus'
-Bundle 'digitaltoad/vim-jade'
 
 " Turn filetype back on again for Vundle
 filetype plugin indent on
@@ -244,7 +238,8 @@ let g:fuf_dataDir = '~/.vim/tmp'
 
 " SnipMate Plugin
 " Use command-y for snipmate
-let g:snips_trigger_key='<D-y>'
+"let g:snips_trigger_key='<D-y>'
+imap <D-y> <Plug>snipMateNextOrTrigger
 let g:snips_author = 'Maurice Fonk'
 
 " Syntastic Plugin
@@ -267,15 +262,18 @@ if has("unix")
 endif
 
 " Map leader-n to nerd tree on/off
-map <Leader>n :NERDTreeToggle<CR>
+"map <Leader>n :NERDTreeToggle<CR>
 map <Leader>f :NERDTreeFind<CR>
-" open in new tab by default
-let g:CommandTAcceptSelectionMap = '<C-t>'
-let g:CommandTAcceptSelectionTabMap = '<CR>'
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
+
+" Show nerd tree when opening
+"autocmd VimEnter * NERDTree
+"autocmd VimEnter * wincmd p
+
 " Use arrows for directories
-let NERDTreeDirArrows=1
+let NERDTreeDirArrows = 1
 " Make the nerd tree window nice and big
-let NERDTreeWinSize=50
+let NERDTreeWinSize = 50
 
 " use NerdComment with command+/
 map <D-/> NERDComToggleComment
@@ -344,3 +342,5 @@ let g:php_cs_fixer_fixers_list = ""             " List of fixers
 let g:php_cs_fixer_enable_default_mapping = 1   " Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run = 0                  " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                  " Return the output of command if 1, else an inline information.
+
+map <Leader>z :call PhpCsFixerFixFile()<CR>
