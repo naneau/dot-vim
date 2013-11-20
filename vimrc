@@ -26,12 +26,16 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'sjl/gundo.vim'
 Bundle 'slack/vim-l9'
 Bundle 'plasticboy/vim-markdown'
+Bundle 'godlygeek/tabular'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
+"Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'lunaru/vim-twig'
+" Needed for snipmate
+Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-surround'
@@ -187,6 +191,9 @@ vmap <D-d> :CoffeeCompile<CR>
 
 " Add coffeekup to supported files for coffeescript
 au BufNewFile,BufRead *.coffeekup set filetype=coffee
+
+" Set tab width to 2 for coffee
+autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
 
 " Markdown
 autocmd FileType mkd set linebreak wrap nolist
