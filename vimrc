@@ -29,7 +29,7 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'godlygeek/tabular'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-"Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -42,10 +42,14 @@ Bundle 'tpope/vim-surround'
 Bundle 'thisivan/vim-taglist'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/YankRing.vim'
-Bundle 'mattn/zencoding-vim'
+"Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'groenewege/vim-less'
+Bundle 'nono/vim-handlebars'
+Bundle 'bitc/vim-hdevtools'
+Bundle 'AndrewRadev/vim-eco'
 
 " Turn filetype back on again for Vundle
 filetype plugin indent on
@@ -153,11 +157,11 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 " Ignore vendor and library's for in wildignore
 "set wildignore+=vendor/**,library/zend/**,external-library/**,public/**
 set wildignore+=*/app/cache/*
-set wildignore+=*/tmp/*
+set wildignore+=*/tmp/*,*/application/data/*
 set wildignore+=vendor/**
 "set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
-
+set wildignore+=*/bower_components/*,*/node_modules/*,*.so,*.swp,*.zip     " Linux/MacOSX
 "----------------------------------------------------------------------
 
 " NATIVE MAPPINGS
@@ -213,6 +217,11 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 "autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
+" Haskell
+autocmd FileType haskell set omnifunc=necoghc#omnifunc
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+
 "----------------------------------------------------------------------
 
 " PLUGINS
@@ -229,6 +238,9 @@ let g:ctrlp_prompt_mappings = {
 
 " Too much muscle memory, mapping command-T to CtrlP too
 map <D-t> :CtrlP<CR>
+
+" Show types in neco-ghc
+let g:necoghc_enable_detailed_browse = 1
 
 " TagList plugin
 map <Leader>t :TlistToggle<CR>                  " Map leader t to  TagList toggle
@@ -273,10 +285,6 @@ endif
 map <Leader>f :NERDTreeFind<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
-" Show nerd tree when opening
-"autocmd VimEnter * NERDTree
-"autocmd VimEnter * wincmd p
-
 " Use arrows for directories
 let NERDTreeDirArrows = 1
 " Make the nerd tree window nice and big
@@ -285,9 +293,10 @@ let NERDTreeWinSize = 50
 " use NerdComment with command+/
 map <D-/> NERDComToggleComment
 
-" Set up nerd comment custom delimiters for coffeescript
+" Set up nerd comment custom delimiters for coffeescript and haskell
 let g:NERDCustomDelimiters = {
-    \'coffee': { 'left': '#' }
+    \'coffee': { 'left': '#' },
+    \'haskell': { 'left': '-- ', 'leftAlt': '{-', 'rightAlt': '}-' }
 \}
 
 " Map BufExplorer to leader-b
@@ -304,8 +313,8 @@ map <Leader>a :Gcommit --amend<CR>
 map <Leader>s :Gstatus<CR>
 map <Leader>p :Git push<CR>
 
-" ZEN CODING
-imap <D-e> <C-y>,
+" EMMET
+"let g:user_emmet_leader_key='<D-e>'
 
 " GUNDO
 map <Leader>r :GundoToggle<CR>
@@ -320,7 +329,8 @@ let g:yankring_window_width = 75
 " SUPERTAB
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabLongestHighlight = 1
-let g:SuperTabNoCompleteAfter = [':', '\s', ']', ')', '"', "'"]         " Don't complete after obvious non-tabbable
+let g:SuperTabNoCompleteAfter = ['^', ':', '\s', ']', ')', '"', "'"]         " Don't complete after obvious non-tabbable
+
 
 " YANKRING
 let g:yankring_history_dir = '~/.vim/tmp'

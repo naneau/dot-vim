@@ -8,9 +8,6 @@ color solarized
 "color naneau
 
 if has("gui_macvim")
-    " Map reveal in browser
-    map <Leader>r :maca revealInFileBrowser:<CR>
-
     " Start without the toolbar
     set guioptions-=T
 
@@ -32,6 +29,9 @@ if has("gui_macvim")
     " Command-Return for fullscreen
     macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
 
+    " Show nerd tree when opening
+    autocmd VimEnter * NERDTree
+    autocmd VimEnter * wincmd p
 endif
 
 " Make sure we enter something upon entering VIM
