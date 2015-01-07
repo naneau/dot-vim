@@ -18,7 +18,8 @@ if has("gui_macvim")
     " Pretty font ^^
     "set guifont=Droid\ Sans\ Mono:h12
     set guifont=Source\ Code\ Pro:h13
-    "set guifont=Inconsolata:h15
+    "set guifont=Luculent:h13
+    "set guifont=Inconsolata:h18
 
     " Fullscreen takes up entire screen
     set fuoptions=maxhorz,maxvert

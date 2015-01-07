@@ -17,14 +17,14 @@ Bundle 'gmarik/vundle'
 
 " VUNDLE SETUP
 
-Bundle 'mileszs/ack.vim'
+Bundle 'rking/ag.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'sjl/gundo.vim'
-Bundle 'slack/vim-l9'
+"Bundle 'slack/vim-l9'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'godlygeek/tabular'
 Bundle 'scrooloose/nerdcommenter'
@@ -32,24 +32,28 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'lunaru/vim-twig'
+Bundle 'MarcWeber/vim-addon-mw-utils'
 " Needed for snipmate
 Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-surround'
-Bundle 'thisivan/vim-taglist'
+"Bundle 'thisivan/vim-taglist'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/YankRing.vim'
-"Bundle 'mattn/zencoding-vim'
 Bundle 'mattn/emmet-vim'
 Bundle 'stephpy/vim-php-cs-fixer'
-Bundle 'arnaud-lb/vim-php-namespace'
+"Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'groenewege/vim-less'
-Bundle 'nono/vim-handlebars'
-Bundle 'bitc/vim-hdevtools'
-Bundle 'AndrewRadev/vim-eco'
+"Bundle 'nono/vim-handlebars'
+"Bundle 'bitc/vim-hdevtools'
+"Bundle 'AndrewRadev/vim-eco'
+Bundle 'toyamarinyon/vim-swift'
+" Fix for slow 7.4 YAML
+Bundle 'stephpy/vim-yaml'
+" Php documentor
+"Bundle 'tobyS/pdv'
 
 " Turn filetype back on again for Vundle
 filetype plugin indent on
@@ -187,6 +191,8 @@ vmap <D-[> <gv
 
 " FILETYPE SPECIFIC SETTINGS
 
+map <Leader>m :!make html<CR> " Map leader m to sphinx build
+
 " Map command-d to coffee compile
 vmap <D-d> :CoffeeCompile<CR>
 
@@ -268,9 +274,9 @@ let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-" Ack Plugin
-" Command-Shift-F for Ack
-map <D-F> :Ack<space>
+" Ag Plugin
+" Command-Shift-F for Ag
+map <D-F> :Ag<space>
 
 " Use silver_searchver for ack on OSX
 if has("unix")
@@ -346,7 +352,7 @@ map <Leader>p /[^'^\\^\s^_][A-Z]\+[a-zA-Z]\+[_][A-Z][A-Za-z_]\+<CR>
 let g:EclimLogLevel = 0
 let g:EclimValidate = 0
 let g:EclimXmlValidate = 0
-let g:EclimPhpValidate = 0
+let g:EclimPhpValidate = 1
 let g:EclimPhpHtmlValidate = 0
 set completeopt-=preview
 
@@ -355,7 +361,7 @@ let g:php_cs_fixer_path = "~/Workspace/bin/php-cs-fixer.phar" " define the path 
 let g:php_cs_fixer_level = "all"                " which level ?
 let g:php_cs_fixer_config = "default"           " configuration
 let g:php_cs_fixer_php_path = "php"             " Path to PHP
-let g:php_cs_fixer_fixers_list = ""             " List of fixers
+let g:php_cs_fixer_fixers_list = "psr2"             " List of fixers
 let g:php_cs_fixer_enable_default_mapping = 1   " Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run = 0                  " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                  " Return the output of command if 1, else an inline information.
